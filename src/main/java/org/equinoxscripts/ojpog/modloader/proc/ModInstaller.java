@@ -58,17 +58,17 @@ public class ModInstaller {
 			deferred = true;
 		}
 
-		if (name.toLowerCase().endsWith(".tml") && name.equals("Vehicles.tml")) {
+		if (name.toLowerCase().endsWith(".tml")) {
 			unprocessedMaterials.add(new String[] { key, key });
 			deferred = true;
 		}
 
-//		if (!deferred) {
-//			File fd = new File(dest, key);
-//			if (!fd.getParentFile().exists())
-//				fd.getParentFile().mkdirs();
-//			org.apache.commons.io.FileUtils.copyInputStreamToFile(mod.handle(key), fd);
-//		}
+		if (!deferred) {
+			File fd = new File(dest, key);
+			if (!fd.getParentFile().exists())
+				fd.getParentFile().mkdirs();
+			org.apache.commons.io.FileUtils.copyInputStreamToFile(mod.handle(key), fd);
+		}
 	}
 
 	private final Queue<String[]> unprocessedMaterials = new LinkedList<String[]>();
@@ -98,19 +98,19 @@ public class ModInstaller {
 				} catch (Exception e) {
 					throw new IOException("Failed to load " + imag);
 				}
-				TML_Texture[] textureRemap = new TML_Texture[input.textures.length];
-				for (int i = 0; i < textureRemap.length; i++) {
-					TML_Texture t = output.getFreeTexture();
-					textureRemap[input.textures[i].textureID] = t;
-					t.set(input.textures[i]);
+				Map<TML_Texture, TML_Texture> textureRemap = new HashMap<>();
+				for (TML_Texture in : input.textures.values()) {
+					TML_Texture out = output.getFreeTexture();
+					out.set(in);
+					textureRemap.put(in, out);
 				}
 				for (TML_Material in : input.stringMapping.values()) {
-					TML_Material out = output.createOrGetMaterial(in.name);
+					TML_Material out = output.createOrGetMaterial(in.name, true);
 					out.unknown = in.unknown;
 					if (in.textures.length != out.textures.length)
 						out.textures = Arrays.copyOf(out.textures, in.textures.length);
-					for (int i = 0; i < in.textures.length; i++) 
-						out.textures[i] = textureRemap[in.textures[i].textureID];
+					for (int i = 0; i < in.textures.length; i++)
+						out.textures[i] = textureRemap.get(in.textures[i]);
 				}
 			} else {
 				String materialName = FileUtils.fileName(imag);
@@ -123,7 +123,7 @@ public class ModInstaller {
 					piece = Integer.parseInt(materialName.substring(und + 1));
 					materialName = materialName.substring(0, und);
 				}
-				TML_Material out = output.createOrGetMaterial(materialName);
+				TML_Material out = output.createOrGetMaterial(materialName, false);
 				if (out.textures.length <= piece)
 					out.textures = Arrays.copyOf(out.textures, piece + 1);
 				for (int i = 0; i < out.textures.length; i++)
