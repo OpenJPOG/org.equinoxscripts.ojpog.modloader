@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.equinoxscripts.ojpog</groupId>
-	<version>0.0.5</version>
+	<version>0.1.0</version>
 	<artifactId>modloader</artifactId>
 
 	<dependencies>
