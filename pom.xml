@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.equinoxscripts.ojpog</groupId>
-	<version>0.1.0</version>
+	<version>0.1.1-SNAPSHOT</version>
 	<artifactId>modloader</artifactId>
 
 	<dependencies>
@@ -15,7 +15,7 @@
 		<dependency>
 			<groupId>org.equinoxscripts.ojpog</groupId>
 			<artifactId>io</artifactId>
-			<version>0.0.5</version>
+			<version>0.1.0</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-io</groupId>
@@ -38,6 +38,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
+				<version>3.0.2</version>
 				<configuration>
 					<archive>
 						<manifest>
@@ -62,4 +63,28 @@
 			</plugin>
 		</plugins>
 	</build>
+
+<!-- bintray -->
+	<repositories>
+		<repository>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<id>bintray-openjpog-Utilities</id>
+			<name>bintray</name>
+			<url>http://dl.bintray.com/openjpog/Utilities</url>
+		</repository>
+	</repositories>
+
+	<distributionManagement>
+		<repository>
+			<id>bintray</id>
+			<url>https://api.bintray.com/maven/openjpog/Utilities/org.equinoxscripts.ojpog.modloader/;publish=1</url>
+		</repository>
+		<snapshotRepository>
+			<uniqueVersion>false</uniqueVersion>
+			<id>bintray</id>
+			<url>https://api.bintray.com/maven/openjpog/Utilities/org.equinoxscripts.ojpog.modloader/;publish=1</url>
+		</snapshotRepository>
+	</distributionManagement>
 </project>
