@@ -1,20 +1,23 @@
 {
-    "package": {
-        "name": "org.equinoxscripts.ojpog.modloader",
-        "repo": "Utilities",
-        "subject": "openjpog"
+  "package": {
+    "name": "org.equinoxscripts.ojpog.modloader",
+    "repo": "Utilities",
+    "subject": "openjpog"
+  },
+  "version": {
+    "name": "snapshot",
+    "desc": "Automated snapshot",
+    "gpgSign": false
+  },
+  "files": [
+    {
+      "includePattern": "target/(.*\\.jar)",
+      "uploadPattern": "$1"
     },
-
-    "version": {
-        "name": "snapshot",
-        "desc": "Automated snapshot",
-        "gpgSign": false
-    },
-
-    "files":
-        [
-        {"includePattern": "target/(.*.jar)", "uploadPattern": "$1"},
-        {"includePattern": "target/(.*.zip)", "uploadPattern": "$1"},
-        ],
-    "publish": true
+    {
+      "includePattern": "target/(.*\\.zip)",
+      "uploadPattern": "$1"
+    }
+  ],
+  "publish": true
 }
