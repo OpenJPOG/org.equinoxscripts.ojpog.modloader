@@ -2,12 +2,5 @@ language: java
 jdk:
  - oraclejdk8
 
-deploy:
-  provider: bintray
-  file: "bintray.json"
-  user: "equinox"
-  key: "$BINTRAY_PASS"
-  on: develop
-
 after_success:
   - ./deploy_release.sh
